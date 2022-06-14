@@ -13,7 +13,7 @@ int main() {
     std::cout << std::endl;
     print_matrix(matrix, row, column);
     std::cout << std::endl;
-    sorting_recursively(matrix, row, column);
+    sorting_rowWise(matrix, row, column);
     print_matrix(matrix, row, column);
     std::cout << std::endl;
     delete_matrix(matrix, row);
