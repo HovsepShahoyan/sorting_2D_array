@@ -1,5 +1,28 @@
-#include "sorting_2D_array.h"
 #include <iostream>
+
+void insert_matrix(int**, int, int);
+void print_matrix(int**, int, int);
+void delete_matrix(int**, int);
+void sorting_byValue(int**, int, int);
+int** create_matrix(int, int);
+
+int main() {
+    int row;
+    int column;
+    std::cin >> row;
+    std::cout << std::endl;
+    std::cin >> column;
+    std::cout << std::endl;
+    int** matrix = create_matrix(row, column);
+    insert_matrix(matrix, row, column);
+    std::cout << std::endl;
+    print_matrix(matrix, row, column);
+    std::cout << std::endl;
+    sorting_byValue(matrix, row, column);
+    print_matrix(matrix, row, column);
+    std::cout << std::endl;
+    delete_matrix(matrix, row);
+}
 
 int** create_matrix(int row, int column) {
     int** matrix = new int*[row];
@@ -9,17 +32,24 @@ int** create_matrix(int row, int column) {
     return matrix;
 }
 
-void sorting_rowWise(int** matrix, int row, int column) {
-    for(int i = 0; i < row; i++) {
-        for(int j = 0; j < column; j++) {
-            for (int k = 0; k < column - j - 1; k++) {
-                if(matrix[i][k] > matrix[i][k + 1]) {
-                    int tmp = matrix[i][k];
-                    matrix[i][k] = matrix[i][k+1];
-                    matrix[i][k+1] = tmp;
-                }
-            }
-        }        
+void sorting_byValue(int** matrix, int row, int column) {
+   int var = 0;
+   int min = matrix[0][0];
+   for(int i = 0; i < row; i++) {
+       for(int j = 0; j < column; j++) {
+           if(matrix[i][j] < min) {
+               min = matrix[i][j];
+           }
+       }
+   }
+   for(int i = 0; i < row; i++) {
+       for(int k = 1; k < row * column; k++) {
+           int tmp = matrix[i][k];
+           for(int j = k; j >= 1 && matrix[i][j-1] > tmp && tmp >= min; j--)  
+                matrix[i][j] = matrix[i][j - 1];
+            matrix[i][var] = tmp;
+            if(tmp < min) { break; }
+        }
     }
 }
 
