@@ -1,5 +1,8 @@
 #include <iostream>
-
+// There is no reason to have recursive sorting for the matrix because it will
+// consume a lot of memory comparing to iterative way of sorting, besides 
+// we can have some problems with our stack memory in case we work with 
+// a big matrix size.
 void insert_matrix(int**, int, int);
 void print_matrix(int**, int, int);
 void delete_matrix(int**, int);
@@ -9,8 +12,10 @@ int** create_matrix(int, int);
 int main() {
     int row;
     int column;
+    std::cout << "Enter the number of rows" << std::endl;
     std::cin >> row;
     std::cout << std::endl;
+    std::cout << "Enter the number of columns" << std::endl;
     std::cin >> column;
     std::cout << std::endl;
     int** matrix = create_matrix(row, column);
@@ -25,6 +30,7 @@ int main() {
 }
 
 int** create_matrix(int row, int column) {
+    std::cout << "Input the matrix: " << std::endl; 
     int** matrix = new int*[row];
     for(int i = 0; i < row; i++) {
         matrix[i] = new int[column];
@@ -33,7 +39,6 @@ int** create_matrix(int row, int column) {
 }
 
 void sorting_byValue(int** matrix, int row, int column) {
-   int var = 0;
    int min = matrix[0][0];
    for(int i = 0; i < row; i++) {
        for(int j = 0; j < column; j++) {
@@ -45,9 +50,9 @@ void sorting_byValue(int** matrix, int row, int column) {
    for(int i = 0; i < row; i++) {
        for(int k = 1; k < row * column; k++) {
            int tmp = matrix[i][k];
-           for(int j = k; j >= 1 && matrix[i][j-1] > tmp && tmp >= min; j--)  
-                matrix[i][j] = matrix[i][j - 1];
-            matrix[i][var] = tmp;
+           for(int j = k; j >= 1 && matrix[i][j-1] > tmp && tmp >= min; j--)   
+            matrix[i][j] = matrix[i][j - 1];  
+            matrix[i][k] = tmp;
             if(tmp < min) { break; }
         }
     }
